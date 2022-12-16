@@ -283,7 +283,7 @@ if __name__ == '__main__':
                         help='gpus to use, e.g. 0-3 or 0,1,2,3')
     parser.add_argument('--batch_size_per_gpu', default=1, type=int,
                         help='input batch size')
-    parser.add_argument('--num_epoch', default=120, type=int,
+    parser.add_argument('--num_epoch', default=25, type=int,
                         help='epochs to train for')
     parser.add_argument('--start_epoch', default=1, type=int,
                         help='epoch to start training. useful if continue from a checkpoint')
@@ -301,11 +301,11 @@ if __name__ == '__main__':
                         help='fix bn params')
 
     # Data related arguments
-    parser.add_argument('--num_class', default=150, type=int,
+    parser.add_argument('--num_class', default=4, type=int,
                         help='number of classes')
     parser.add_argument('--workers', default=16, type=int,
                         help='number of data loading workers')
-    parser.add_argument('--imgSize', default=512,
+    parser.add_argument('--imgSize', default=128,
                         nargs='+', type=int,
                         help='input image size of short edge (int or list)')
     parser.add_argument('--imgMaxSize', default=1000, type=int,

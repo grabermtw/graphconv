@@ -35,7 +35,7 @@ class GCU(Module):
 		torch.nn.init.xavier_uniform(self.variance)
 
 
-		self.iden = torch.eye(self.d).cuda(1)
+		self.iden = torch.eye(self.d).cuda(0)
 		self.iden = torch.cat((self.iden, self.iden))
 		for i in range(int(np.log2(V))):
 			self.iden = torch.cat((self.iden,self.iden), dim=1)
@@ -78,12 +78,12 @@ class GCU(Module):
 	def GraphProject(self,X):
 
 		Adj = torch.cuda.FloatTensor(self.batch, self.no_of_vert,self.no_of_vert)
-		Adj = Adj.cuda(1)
+		Adj = Adj.cuda(0)
 		Z = torch.cuda.FloatTensor(self.batch,self.d,self.no_of_vert)
-		Z = Z.cuda(1)
+		Z = Z.cuda(0)
 		Q = torch.cuda.FloatTensor(self.batch, self.ht*self.wdth,self.no_of_vert)
 
-		Q = Q.cuda(1)
+		Q = Q.cuda(0)
 		#print("Hello",Z.get_device(), Q.get_device())
 		for i in range(self.no_of_vert):
 			q1 = self.W[:,i]
@@ -126,7 +126,7 @@ class GCU(Module):
 
 			n = torch.sum(Q[:,:,i],dim=1)
 			#print(z.shape, n.shape)
-			if torch.equal(z,torch.cuda.FloatTensor(z.shape).fill_(0).cuda(1)) and torch.equal(n,torch.cuda.FloatTensor(n.shape).fill_(0).cuda(1)):
+			if torch.equal(z,torch.cuda.FloatTensor(z.shape).fill_(0).cuda(0)) and torch.equal(n,torch.cuda.FloatTensor(n.shape).fill_(0).cuda(0)):
 				z = torch.ones(z.shape)
 			else:
 				z = z/n[:,None]
@@ -149,14 +149,14 @@ class GCU(Module):
 	def GraphProject_optim(self, X):
 
 		Adj = torch.cuda.FloatTensor(self.batch, self.no_of_vert,self.no_of_vert)
-		Adj = Adj.cuda(1)
+		Adj = Adj.cuda(0)
 		Z = torch.cuda.FloatTensor(self.batch,self.d,self.no_of_vert)
-		Z = Z.cuda(1)
+		Z = Z.cuda(0)
 		Q = torch.cuda.FloatTensor(self.batch, self.ht*self.wdth,self.no_of_vert)
 
-		Q = Q.cuda(1)
+		Q = Q.cuda(0)
 		X = torch.reshape(X,(self.batch, self.ht*self.wdth, self.d))
-		zero = torch.cuda.FloatTensor(X.shape).fill_(0).cuda(1) 
+		zero = torch.cuda.FloatTensor(X.shape).fill_(0).cuda(0) 
 		new = torch.cat((zero, X), dim=2)
 		#print("Shapes", new.shape, zero.shape, X.shape)
 		extend = torch.matmul(new, self.iden)
