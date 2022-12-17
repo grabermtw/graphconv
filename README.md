@@ -1,3 +1,5 @@
+Didn't end up having time to figure out how to use this in the CIS700 project.
+
 ## Introduction
 
 ![Semantic Segmentation](https://github.com/vidit98/graphconv/blob/master/ADE_train_00009317_seg.png)
